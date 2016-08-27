@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Words finder</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta name="generator" content="Geany 1.27" />
+<script src="jquery.js"></script>
+<style>
+body,td,input {padding:1em;}
+#grid table {border:2px solid grey;}
+</style>
+</head>
+<body>
+Board
+<form id="grid" action="findwords" method="POST"><table>
+	<tr>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	</tr>
+	<tr>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	</tr>
+	<tr>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	</tr>
+	<tr>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	<td><input type="text" name="dice" size=2 autocomplete="off"></td>
+	</tr></table><br/>
+	<input type="submit" value="find matching words"/>
+	<output id="status"></output>
+</form>
+<pre><div id='result'></div></pre>
+<script>
+$("#grid").submit(function submitHandler(e) {
+	e.preventDefault();
+	$("#status").empty();
+	$("#result").empty();
+	var form = $(this);
+	var str = form.serialize();
+	var url = form.attr("action");
+	$.post(url, str).done(function(data) {
+		$("#result").text(data);
+	}).fail(function() {
+		$("#status").text("service unavailable");
+	});
+});
+</script>
+</body>
+
+</html>
