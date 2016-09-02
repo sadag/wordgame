@@ -2,7 +2,7 @@ package words
 
 // English words
 // http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt
-const eng = `a
+const Eng = `a
 aah
 aahed
 aahing

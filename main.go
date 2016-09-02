@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"bytes"
 	"github.com/sadag/wordgame/words"
 	"log"
 	"net/http"
@@ -22,22 +21,7 @@ func findwords(w http.ResponseWriter, r *http.Request) {
 	}
 	matched := make(map[string]bool, 50)
 
-	// read horizontally
-	var buf bytes.Buffer
-	for _, val := range dice {
-		buf.WriteString(val)
-	}
-	words.Match(buf.String(), matched)
-
-	// read vertically
-	buf.Reset()
-	for col := 0; col < colN; col++ {
-		for row := col; row < boardN; row += colN {
-			buf.WriteString(dice[row])
-		}
-	}
-	words.Match(buf.String(), matched)
-
+	words.Match(dice, matched)
 	bw := bufio.NewWriter(w)
 	for w := range matched {
 		bw.WriteString(w)
